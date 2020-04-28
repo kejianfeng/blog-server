@@ -1,55 +1,57 @@
+const poolQuery = require("../utils/db");
 module.exports = (router) => {
-    router.get('/source/sourcelist', async ctx => {
+    router.get('/source/sourceList', async ctx => {
+        const sql = "select id, source_icon as sourceIcon,source_name as sourceName, source_intro as sourceIntro from source"
+        let result = await poolQuery(sql).catch(err => {
+          ctx.body = {
+            code: 5001,
+            message: "查询出错",
+            data:null
+          };
+          return
+        })
         ctx.body = {
-            code:1,
-            message: '成功',
-            data: [
-                {
-                    id: 1,
-                    createTime:'2016-12-09',
-                    title: 'Vue移动音乐播放器实践',
-                    intro:'从基础学起到完成一个中型项目，让你快速成为一个熟用vue进行开发的极客',
-                    thumbnail: 'https://www.niudana.com/uploadfile/201611/20/155400381.png',
-                    sourceLink: 'http://www.baidu.com',
-                    key:'hjyt'
-                },
-                {
-                    id: 2,
-                    createTime:'2016-12-09',
-                    title: 'Vue移动音乐播放器实践',
-                    intro:'从基础学起到完成一个中型项目，让你快速成为一个熟用vue进行开发的极客',
-                    thumbnail: 'https://www.niudana.com/uploadfile/201611/20/155400381.png',
-                    sourceLink: 'http://www.baidu.com',
-                    key:'hjyt'
-                },
-                {
-                    id: 3,
-                    createTime:'2016-12-09',
-                    title: 'Vue移动音乐播放器实践',
-                    intro:'从基础学起到完成一个中型项目，让你快速成为一个熟用vue进行开发的极客',
-                    thumbnail: 'https://www.niudana.com/uploadfile/201611/20/155400381.png',
-                    sourceLink: 'http://www.baidu.com',
-                    key:'hjyt'
-                },
-                {
-                    id: 4,
-                    createTime:'2016-12-09',
-                    title: 'Vue移动音乐播放器实践',
-                    intro:'从基础学起到完成一个中型项目，让你快速成为一个熟用vue进行开发的极客',
-                    thumbnail: 'https://www.niudana.com/uploadfile/201611/20/155400381.png',
-                    sourceLink: 'http://www.baidu.com',
-                    key:'hjyt'
-                },
-                {
-                    id: 5,
-                    createTime:'2016-12-09',
-                    title: 'Vue移动音乐播放器实践',
-                    intro:'从基础学起到完成一个中型项目，让你快速成为一个熟用vue进行开发的极客',
-                    thumbnail: 'https://www.niudana.com/uploadfile/201611/20/155400381.png',
-                    sourceLink: 'http://www.baidu.com',
-                    key:'hjyt'
-                }
-            ]
-        }
+          code: 200,
+          message: "成功",
+          data:result
+        };
     })
+    router.post('/source/detail', async ctx => {
+        const {id} = ctx.request.body
+        const sql = `select id, source_icon as sourceIcon,source_name as sourceName, source_intro as sourceIntro,source_link as sourceLink,source_password as sourcePassword,source_shoot as sourceShoot, source_labels as sourceLabels from source where id=${id}`
+        let result = await poolQuery(sql).catch(err => {
+          ctx.body = {
+            code: 5001,
+            message: "查询出错",
+            data:null
+          };
+          return
+        })
+        ctx.body = {
+          code: 200,
+          message: "成功",
+          data:result[0]
+        };
+    })
+    router.post("/source/add", async ctx => {
+        const  {sourceName,sourceIntro, sourceLink,sourceIcon, sourcePassword,sourceShoot,sourceLabels } = ctx.request.body
+        const sql = `INSERT INTO source(source_name, source_intro, source_link,source_icon,source_password,source_shoot, source_labels) VALUES 
+        ('${sourceName}','${sourceIntro}','${sourceLink}', '${sourceIcon}', '${sourcePassword}', '${sourceShoot}', '${sourceLabels}');`
+        console.log(sql)
+        let result = await poolQuery(sql).catch(err => {
+          ctx.body = {
+            code: 5001,
+            message: "查询出错",
+            data:null
+          };
+          return
+        })
+        console.log(result)
+        ctx.body = {
+          code: 200,
+          message: "成功",
+          data:null
+        };
+        return
+      })
 }
