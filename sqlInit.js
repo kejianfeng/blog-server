@@ -26,12 +26,12 @@ const createAllTables = async () => {
     for ( let [ i, shell ] of sqlShellList.entries() ) {
       if ( shell.trim() ) {
         console.log(shell)
-        // let result = await query( shell )
-        // if ( result.serverStatus * 1 === 2 ) {
-        //   eventLog( null,  key, i)
-        // } else {
-        //   eventLog( true,  key, i) 
-        // }
+        let result = await query( shell )
+        if ( result.serverStatus * 1 === 2 ) {
+          eventLog( null,  key, i)
+        } else {
+          eventLog( true,  key, i) 
+        }
       }
     }
   }
