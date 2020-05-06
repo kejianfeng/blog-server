@@ -7,6 +7,7 @@ create table IF NOT EXISTS `article`(
    `topic` VARCHAR(255) NOT NULL COMMENT '文章主题',
    `labels` VARCHAR(255) NOT NULL COMMENT '文章标签',
    `click_sum` INT  NOT NULL DEFAULT 0 COMMENT '文章点击数',
+   `like_sum` INT NOT NULL DEFAULT 0 comment '文章点赞数'
    `comment_sum` INT NOT NULL DEFAULT 0 COMMENT '文章评论数',
    `main_body` TEXT NOT NULL COMMENT '文章内容',
    `status` INT NOT NULL DEFAULT 2  COMMENT '文章状态',
@@ -69,6 +70,26 @@ create table IF NOT EXISTS `source`(
    `source_icon` VARCHAR(255) NOT NULL COMMENT '资源图标',
    `source_password` VARCHAR(255)  COMMENT '资源密码',
    `source_shoot` VARCHAR(255) NOT NULL COMMENT '资源截图',
+   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+   PRIMARY KEY ( id )
+);
+
+/*评论*/
+/*
+type 1 为文章评论 2为行博评论 3为留言页留言
+*/
+use blogcenter;
+create table IF NOT EXISTS `comment`(   
+   `id` INT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+   `belong_id` INT  COMMENT '关联ID',
+   `type` INT NOT NULL  DEFAULT 1 COMMENT '评论类别',
+   `comment` TEXT NOT NULL COMMENT '评论内容',
+   `nickname` VARCHAR(255) NOT NULL COMMENT '昵称',
+   `email` VARCHAR(255) NOT NULL COMMENT '邮箱',
+   `site` VARCHAR(255)  COMMENT '个人站点',
+   `quote_nickname` VARCHAR(255)  COMMENT '引用昵称',
+   `quote_comment` VARCHAR(255)  COMMENT '引用评论',
    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
    PRIMARY KEY ( id )
