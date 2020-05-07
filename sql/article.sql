@@ -5,7 +5,7 @@ create table IF NOT EXISTS `article`(
    `topic` VARCHAR(255) NOT NULL COMMENT '文章主题',
    `labels` VARCHAR(255) NOT NULL COMMENT '文章标签',
    `click_sum` INT  NOT NULL DEFAULT 0 COMMENT '文章点击数',
-   `like_sum` INT NOT NULL DEFAULT 0 comment '文章点赞数'
+   `like_sum` INT NOT NULL DEFAULT 0 comment '文章点赞数',
    `comment_sum` INT NOT NULL DEFAULT 0 COMMENT '文章评论数',
    `main_body` TEXT NOT NULL COMMENT '文章内容',
    `status` INT NOT NULL DEFAULT 2  COMMENT '文章状态',
