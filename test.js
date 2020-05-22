@@ -20,6 +20,5 @@ axios({
   const hash = crypto.createHash('md5')
   hash.update("https://mmbiz.qpic.cn/mmbiz_jpg/iaice9ibHiamNVU6sfREDL4d5B1kjAicAFUUBReLrNwH8ZFXa67w8gKpO5scoaibSPibcHbmibphL3DfAfjKakSRcdME0w/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1")
   const address = hash.digest('hex')
-  console.log(address)
 
 })

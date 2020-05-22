@@ -12,12 +12,11 @@ module.exports = (router) => {
       const bufferFie = Buffer.from(file, 'base64')
       const result = await putFile(address, bufferFie).catch(err => {
         ctx.body = {
-          code:5001,
+          code:501,
           msg:'上传出错啦'
         }
         return
       })
-      // console.log(result)
       if (result.res.status === 200) {
         ctx.body = {
           code:200,

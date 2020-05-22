@@ -1,3 +1,9 @@
+/**
+ * 状态码
+ * 401  不执行操作，返回拒绝信息
+ * 501  执行操作出错
+ */
+
 const Koa = require('koa')
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')

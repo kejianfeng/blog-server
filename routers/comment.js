@@ -3,7 +3,6 @@ module.exports = (router) => {
     router.post("/comment/add", async ctx => {
         const  {id, type, comment,nickname,email, site, quoteComment, quoteNickname} = ctx.request.body
         let table=''
-        console.log(type)
         switch (type) {
           case 1:
             table="article"
@@ -16,7 +15,7 @@ module.exports = (router) => {
         }
         if (id) {
           const sql = `INSERT INTO comment(belong_id, type, comment, nickname, email, site, quote_comment,quote_nickname) VALUES ('${id}','${type}','${comment}', '${nickname}', '${email}', '${site}', '${quoteComment}', '${quoteNickname}');`
-          const sqlUpadate = `update ${table} set comment_sum = comment_sum+1 where id=${id}`
+          const sqlUpadate = `update ${table} set comment_sum = comment_sum+1 where id='${id}'`
           await poolQuery(sql)
           await poolQuery(sqlUpadate)
         } else {
