@@ -24,6 +24,26 @@ module.exports = router => {
     };
   });
 
+ // 管理员获取文章
+
+  router.get("/admin/article/articleList", async ctx => {
+    const sql = `select id,title, summary, topic,labels,click_sum as clickSum,comment_sum as commentSum,status, date_format(create_time, '%Y-%m-%d') as createTime, date_format(update_time,'%Y-%m-%d' ) as updateTime from article;`
+    let result = await poolQuery(sql)
+    if (!result) {
+      ctx.body = {
+        code: 401,
+        message: "没有更多页啦",
+        data:null
+      };
+    }
+    ctx.body = {
+      code: 200,
+      message: "成功",
+      data:result
+    };
+  });
+
+
   // 文章详情
   router.post("/article/detail", async ctx => {
     const {id} = ctx.request.body
