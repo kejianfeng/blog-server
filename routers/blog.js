@@ -23,6 +23,25 @@ module.exports = (router) => {
         };
     })
 
+
+    //管理员行博列表
+    router.get('/admin/blog/blogList', async ctx => {
+      const sql = `select id,labels,blog_pic as blogPic, main_body as mainBody,click_sum as clickSum,comment_sum as commentSum, date_format( create_time, '%Y-%m-%d' ) as createTime, date_format(update_time, '%Y-%m-%d') as updateTime from blog;`
+      let result = await poolQuery(sql)
+      if (!result) {
+        ctx.body = {
+          code: 401,
+          message: "没有更多页啦",
+          data:null
+        };
+      }
+      ctx.body = {
+        code: 200,
+        message: "成功",
+        data:result,
+      };
+  })
+
     //行博详情
   router.post("/blog/detail", async ctx => {
     const {id} = ctx.request.body

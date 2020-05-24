@@ -22,7 +22,7 @@ module.exports = (router) => {
           code:200,
           message: '成功',
           data: {
-            picUrl: result.url
+            picUrl: `//image.jianfengke.com/${result.name}`
           }
         }
         return

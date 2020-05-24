@@ -20,6 +20,25 @@ module.exports = (router) => {
       code: 200,
       message: "成功",
       data: result,
+      total
+    };
+  });
+//管理员图片列表
+  router.get("/admin/picwork/picList", async (ctx) => {
+    const sql =
+      `select id,labels,pic_url as picUrl,pic_text as picText, like_sum as likeSum from pic_works;`;
+    let result = await poolQuery(sql)
+    if (!result) {
+      ctx.body = {
+        code: 401,
+        message: "没有更多页啦",
+        data:null
+      };
+    }
+    ctx.body = {
+      code: 200,
+      message: "成功",
+      data: result,
     };
   });
 
