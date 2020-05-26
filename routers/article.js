@@ -97,7 +97,7 @@ module.exports = router => {
    //管理员文章详情
    router.post("/admin/article/detail", async ctx => {
     const {id} = ctx.request.body
-    const sql = `select id,title, summary, topic,labels,click_sum as clickSum,like_sum as likeSum, comment_sum as commentSum,main_body as mainBody, status, date_format(create_time, '%Y-%m-%d') as createTime, date_format(update_time, '%Y-%m-%d') as updateTime from article where id='${id}'`
+    const sql = `select id,title, summary, topic,labels,click_sum as clickSum,like_sum as likeSum, comment_sum as commentSum,main_body as mainBody, markdown, status, date_format(create_time, '%Y-%m-%d') as createTime, date_format(update_time, '%Y-%m-%d') as updateTime from article where id='${id}'`
     let result = await poolQuery(sql)
     if (result && result.length > 0) {
       ctx.body = {
@@ -116,16 +116,9 @@ module.exports = router => {
   });
   //管理员文章更新
   router.post("/admin/article/update", async ctx => {
-    const  {id, title,summary, topic, labels,mainBody,status } = ctx.request.body
-    const sql = `UPDATE  article set title = '${title}', summary='${summary}', topic='${topic}',labels='${labels}',main_body='${mainBody}' where id='${id}';`
-    let result = await poolQuery(sql).catch(err => {
-      ctx.body = {
-        code: 501,
-        message: "查询出错",
-        data:null
-      };
-      return
-    })
+    const  {id, title,summary, topic, labels,mainBody,markdown} = ctx.request.body
+    const sql = `UPDATE  article set title = '${title}', summary='${summary}', topic='${topic}',labels='${labels}',main_body='${mainBody}' , markdown='${markdown}' where id='${id}';`
+    let result = await poolQuery(sql)
     ctx.body = {
       code: 200,
       message: "成功",
@@ -137,14 +130,7 @@ module.exports = router => {
   router.post("/admin/article/delete", async ctx => {
     const  {id } = ctx.request.body
     const sql = `delete from article where id='${id}';`
-    let result = await poolQuery(sql).catch(err => {
-      ctx.body = {
-        code: 501,
-        message: "查询出错",
-        data:null
-      };
-      return
-    })
+    let result = await poolQuery(sql)
     ctx.body = {
       code: 200,
       message: "成功",
@@ -156,14 +142,7 @@ module.exports = router => {
   router.post("/admin/article/updateStatus", async ctx => {
     const  {id , status} = ctx.request.body
     const sql = `update article set status=${status} where id='${id}';`
-    let result = await poolQuery(sql).catch(err => {
-      ctx.body = {
-        code: 501,
-        message: "查询出错",
-        data:null
-      };
-      return
-    })
+    let result = await poolQuery(sql)
     ctx.body = {
       code: 200,
       message: "成功",
@@ -172,16 +151,9 @@ module.exports = router => {
   })
     // 文章添加
     router.post("/article/add", async ctx => {
-      const  {title,summary, topic, labels,mainBody,status } = ctx.request.body
-      const sql = `INSERT INTO article(title, summary, topic,labels,main_body,status) VALUES ('${title}', '${summary}', '${topic}', '${labels}','${mainBody}',${status});`
-      let result = await poolQuery(sql).catch(err => {
-        ctx.body = {
-          code: 501,
-          message: "查询出错",
-          data:null
-        };
-        return
-      })
+      const  {title,summary, topic, labels,mainBody,markdown,status } = ctx.request.body
+      const sql = `INSERT INTO article(title, summary, topic,labels,main_body,markdown,status) VALUES ('${title}', '${summary}', '${topic}', '${labels}','${mainBody}', '${markdown}', ${status});`
+      let result = await poolQuery(sql)
       ctx.body = {
         code: 200,
         message: "成功",

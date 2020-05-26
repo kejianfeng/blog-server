@@ -8,6 +8,7 @@ create table IF NOT EXISTS `article`(
    `like_sum` INT NOT NULL DEFAULT 0 comment '文章点赞数',
    `comment_sum` INT NOT NULL DEFAULT 0 COMMENT '文章评论数',
    `main_body` TEXT NOT NULL COMMENT '文章内容',
+   `markdown` TEXT NOT NULL COMMENT '文章Markdown',
    `status` INT NOT NULL DEFAULT 2  COMMENT '文章状态',
    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
