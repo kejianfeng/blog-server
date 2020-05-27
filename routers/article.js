@@ -7,7 +7,7 @@ module.exports = router => {
     const totalSql = 'select count(id) as total from article;'
     let {total} = (await poolQuery(totalSql))[0]
     const offset = pageLimit * (curPage - 1)
-    const sql = `select id,title, summary, topic,labels,click_sum as clickSum,comment_sum as commentSum,status, date_format(create_time, '%Y-%m-%d') as createTime, date_format(update_time,'%Y-%m-%d' ) as updateTime from article LIMIT ${pageLimit} OFFSET ${offset}`
+    const sql = `select id,title, summary, topic,labels,click_sum as clickSum,comment_sum as commentSum,status, date_format(create_time, '%Y-%m-%d') as createTime, date_format(update_time,'%Y-%m-%d' ) as updateTime from article ORDER BY id desc LIMIT ${pageLimit} OFFSET ${offset}`
     let result = await poolQuery(sql)
     if (!result) {
       ctx.body = {
@@ -27,7 +27,7 @@ module.exports = router => {
  // 管理员获取文章
 
   router.get("/admin/article/articleList", async ctx => {
-    const sql = `select id,title, summary, topic,labels,click_sum as clickSum,comment_sum as commentSum,status, date_format(create_time, '%Y-%m-%d') as createTime, date_format(update_time,'%Y-%m-%d' ) as updateTime from article;`
+    const sql = `select id,title, summary, topic,labels,click_sum as clickSum,comment_sum as commentSum,status, date_format(create_time, '%Y-%m-%d') as createTime, date_format(update_time,'%Y-%m-%d' ) as updateTime from article ORDER BY id DESC;`
     let result = await poolQuery(sql)
     if (!result) {
       ctx.body = {

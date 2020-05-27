@@ -6,7 +6,7 @@ module.exports = (router) => {
         const totalSql = 'select count(id) as total from blog;'
         let {total} = (await poolQuery(totalSql))[0]
         const offset = pageLimit * (curPage - 1)
-        const sql = `select id,labels,blog_pic as blogPic, main_body as mainBody,click_sum as clickSum,comment_sum as commentSum, date_format( create_time, '%Y-%m-%d' ) as createTime, date_format(update_time, '%Y-%m-%d') as updateTime from blog LIMIT ${pageLimit} OFFSET ${offset}`
+        const sql = `select id,labels,blog_pic as blogPic, main_body as mainBody,click_sum as clickSum,comment_sum as commentSum, date_format( create_time, '%Y-%m-%d' ) as createTime, date_format(update_time, '%Y-%m-%d') as updateTime from blog ORDER BY id DESC LIMIT ${pageLimit} OFFSET ${offset}`
         let result = await poolQuery(sql)
         if (!result) {
           ctx.body = {
@@ -26,7 +26,7 @@ module.exports = (router) => {
 
     //管理员行博列表
     router.get('/admin/blog/blogList', async ctx => {
-      const sql = `select id,labels,blog_pic as blogPic, main_body as mainBody,click_sum as clickSum,comment_sum as commentSum, date_format( create_time, '%Y-%m-%d' ) as createTime, date_format(update_time, '%Y-%m-%d') as updateTime from blog;`
+      const sql = `select id,labels,blog_pic as blogPic, main_body as mainBody,click_sum as clickSum,comment_sum as commentSum, date_format( create_time, '%Y-%m-%d' ) as createTime, date_format(update_time, '%Y-%m-%d') as updateTime from blog ORDER BY id DESC;`
       let result = await poolQuery(sql)
       if (!result) {
         ctx.body = {

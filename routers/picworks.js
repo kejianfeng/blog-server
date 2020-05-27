@@ -26,7 +26,7 @@ module.exports = (router) => {
 //管理员图片列表
   router.get("/admin/picwork/picList", async (ctx) => {
     const sql =
-      `select id,labels,pic_url as picUrl,pic_text as picText, like_sum as likeSum from pic_works;`;
+      `select id,labels,pic_url as picUrl,pic_text as picText, like_sum as likeSum from pic_works ORDER BY id DESC;`;
     let result = await poolQuery(sql)
     if (!result) {
       ctx.body = {
