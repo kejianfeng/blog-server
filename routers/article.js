@@ -100,6 +100,7 @@ module.exports = router => {
     const sql = `select id,title, summary, topic,labels,click_sum as clickSum,like_sum as likeSum, comment_sum as commentSum,main_body as mainBody, markdown, status, date_format(create_time, '%Y-%m-%d') as createTime, date_format(update_time, '%Y-%m-%d') as updateTime from article where id='${id}'`
     let result = await poolQuery(sql)
     if (result && result.length > 0) {
+      result[0].markdown = decodeURIComponent(result[0].markdown)
       ctx.body = {
         code: 200,
         message: "成功",
@@ -149,10 +150,10 @@ module.exports = router => {
       data:null
     };
   })
-    // 文章添加
-    router.post("/article/add", async ctx => {
+    // 管理员文章添加
+    router.post("/admin/article/add", async ctx => {
       const  {title,summary, topic, labels,mainBody,markdown,status } = ctx.request.body
-      const sql = `INSERT INTO article(title, summary, topic,labels,main_body,markdown,status) VALUES ('${title}', '${summary}', '${topic}', '${labels}','${mainBody}', '${markdown}', ${status});`
+      const sql = `INSERT INTO article(title, summary, topic,labels,main_body,markdown,status) VALUES ('${title}', '${summary}', '${topic}', '${labels}',"${mainBody}", "${markdown}", ${status});`
       let result = await poolQuery(sql)
       ctx.body = {
         code: 200,
