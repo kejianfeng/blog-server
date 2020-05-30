@@ -2,8 +2,8 @@ let OSS = require('ali-oss')
 
 let client = new OSS({
   region: 'oss-cn-shenzhen',
-  accessKeyId: 'LTAI4FhKLqz4eHe4LDcsEKaF',
-  accessKeySecret: '54VEN4HvjgR5QrKAh6lwUssar0UlQ9',
+  accessKeyId: 'XXXXXX',
+  accessKeySecret: 'XXXXXX',
   bucket: 'jamki',
 });
 
