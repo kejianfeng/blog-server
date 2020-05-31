@@ -68,8 +68,8 @@ module.exports = router => {
    */
   router.post("/article/guide", async ctx => {
     const {id} = ctx.request.body
-    const pre = `select id, title from article where id=(select max(id) from article where id > '${id}');`
-    const next = `select id, title from article where id=(select min(id) from article where id < '${id}');`
+    const pre = `select id, title from article where id=(select min(id) from article where id > '${id}');`
+    const next = `select id, title from article where id=(select max(id) from article where id < '${id}');`
     let preRecord = await poolQuery(pre)
     let nextRecord = await poolQuery(next)
     const data = Object.create(null)
