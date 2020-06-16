@@ -1,4 +1,4 @@
-const poolQuery = require("../utils/db");
+const {poolQuery} = require("../utils/db");
 module.exports = (router) => {
 
   /**

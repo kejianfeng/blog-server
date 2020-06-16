@@ -1,4 +1,4 @@
-const poolQuery = require("../utils/db");
+const {poolQuery} = require("../utils/db");
 module.exports = (router) => {
     router.post("/comment/add", async ctx => {
         const  {id, type, comment,nickname,email, site, quoteComment, quoteNickname} = ctx.request.body

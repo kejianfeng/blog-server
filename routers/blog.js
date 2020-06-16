@@ -1,4 +1,4 @@
-const poolQuery = require("../utils/db");
+const {poolQuery} = require("../utils/db");
 module.exports = (router) => {
   //行博列表
     router.get('/blog/blogList', async ctx => {

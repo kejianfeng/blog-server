@@ -1,4 +1,4 @@
-const poolQuery = require("../utils/db");
+const {poolQuery} = require("../utils/db");
 module.exports = (router) => {
     router.get('/home/sitelist', async ctx => {
         const sql = "select id, site_name as siteName , site_url as siteUrl, site_text as siteText, classify, site_pic as sitePic from site"

@@ -1,4 +1,4 @@
-const poolQuery = require("../utils/db");
+const {poolQuery} = require("../utils/db");
 module.exports = (router) => {
   //图片列表
   router.get("/picwork/picList", async (ctx) => {
