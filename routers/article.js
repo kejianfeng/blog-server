@@ -84,6 +84,7 @@ module.exports = router => {
    // 文章点赞
   router.post("/article/like", async ctx => {
     const  {id} = ctx.request.body
+    console.log(id)
     const sql = `update article set like_sum = like_sum+1 where id='${id}'`
     await poolQuery(sql)
     ctx.body = {
@@ -117,7 +118,7 @@ module.exports = router => {
   //管理员文章更新
   router.post("/admin/article/update", async ctx => {
     const  {id, title,summary, topic, labels,mainBody,markdown} = ctx.request.body
-    const sql = `UPDATE  article set title = '${title}', summary='${summary}', topic='${topic}',labels='${labels}',main_body='${pool.escape(mainBody)}' , markdown='${pool.escape(markdown)}' where id='${pool.escape(id)}';`
+    const sql = `UPDATE  article set title = '${title}', summary='${summary}', topic='${topic}',labels='${labels}',main_body=${pool.escape(mainBody)} , markdown=${pool.escape(markdown)} where id='${pool.escape(id)}';`
     let result = await poolQuery(sql)
     ctx.body = {
       code: 200,
@@ -152,7 +153,7 @@ module.exports = router => {
     // 管理员文章添加
     router.post("/admin/article/add", async ctx => {
       const  {title,summary, topic, labels,mainBody,markdown,status } = ctx.request.body
-      const sql = `INSERT INTO article(title, summary, topic,labels,main_body,markdown,status) VALUES ('${title}', '${summary}', '${topic}', '${labels}',"${pool.escape(mainBody)}", "${pool.escape(markdown)}", ${status});`
+      const sql = `INSERT INTO article(title, summary, topic,labels,main_body,markdown,status) VALUES ('${title}', '${summary}', '${topic}', '${labels}',${pool.escape(mainBody)}, ${pool.escape(markdown)}, ${status});`
       let result = await poolQuery(sql)
       ctx.body = {
         code: 200,
