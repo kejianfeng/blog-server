@@ -6,6 +6,11 @@ const DB_CONFIG = {
     connectionLimit: 10 //最大连接数
 }
 
+const JWT_CONFIG = {
+    privateKey: 'xxx',
+}
+
 module.exports = Object.freeze({
-    DB_CONFIG
+    DB_CONFIG,
+    JWT_CONFIG
 })

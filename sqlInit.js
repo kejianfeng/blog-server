@@ -1,6 +1,6 @@
 const fs = require('fs');
 const getSqlContentMap = require('./utils/get-sql-content-map');
-const  query = require('./utils/db');
+const  {poolQuery} = require('./utils/db');
 
 
 // 打印脚本执行日志
@@ -26,7 +26,7 @@ const createAllTables = async () => {
     for ( let [ i, shell ] of sqlShellList.entries() ) {
       if ( shell.trim() ) {
         console.log(shell)
-        let result = await query( shell )
+        let result = await poolQuery( shell )
         if ( result.serverStatus * 1 === 2 ) {
           eventLog( null,  key, i)
         } else {

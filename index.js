@@ -7,6 +7,7 @@
 const Koa = require('koa')
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
+const authMiddleWare = require('./middleWare/auth')
 const app = new Koa()
 const PORT = 9000
 const router  = new Router({
@@ -14,6 +15,9 @@ const router  = new Router({
 })
 app.use(bodyParser());
 //error handling
+
+app.use(authMiddleWare())
+
 app.use(async (ctx, next) => {
     try{
         await next()
@@ -24,6 +28,7 @@ app.use(async (ctx, next) => {
     }
 })
 
+
 require('./routers/home')(router)
 require('./routers/article')(router)
 require('./routers/blog')(router)
@@ -32,6 +37,7 @@ require('./routers/source')(router)
 require('./routers/upload')(router)
 require('./routers/comment')(router)
 require('./routers/archives')(router)
+require('./routers/auth')(router)
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.listen(9000)
